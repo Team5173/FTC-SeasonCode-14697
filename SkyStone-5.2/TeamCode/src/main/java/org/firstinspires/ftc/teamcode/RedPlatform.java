@@ -47,8 +47,8 @@ public class RedPlatform extends LinearOpMode {
 
         sleep(2300);
 
-        LSV.setPosition(0.5);
-        RSV.setPosition(0.5);
+        LSV.setPosition(0.6);
+        RSV.setPosition(0.6);
 
         wait(1000);
 

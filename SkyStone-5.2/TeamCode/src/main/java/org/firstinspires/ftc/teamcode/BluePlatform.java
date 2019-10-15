@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
+
 @Autonomous(name = "BlueSide Platform")
 public class BluePlatform extends LinearOpMode {
 
@@ -44,10 +45,10 @@ public class BluePlatform extends LinearOpMode {
 
         sleep(2300);
 
-        LSV.setPosition(0.5);
-        RSV.setPosition(0.5);
+        LSV.setPosition(0.6);
+        RSV.setPosition(0.6);
 
-        wait(1000);
+        sleep(1000);
 
         FL.setPower(1);
         FR.setPower(-1);
