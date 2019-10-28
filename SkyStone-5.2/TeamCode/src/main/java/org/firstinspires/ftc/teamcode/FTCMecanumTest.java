@@ -51,7 +51,7 @@ public class FTCMecanumTest extends OpMode {
     private DcMotor BL = null;
     private DcMotor BR = null;
 
-    private ColorSensor cs = null;
+    private ColorSensor CS = null;
 
 
     public void init() {
@@ -65,7 +65,7 @@ public class FTCMecanumTest extends OpMode {
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        cs = hardwareMap.get(ColorSensor.class, "cs");
+        CS = hardwareMap.get(ColorSensor.class, "CS");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -88,7 +88,7 @@ public class FTCMecanumTest extends OpMode {
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Color", cs.red());
+        telemetry.addData("Color", CS.red());
     }
 
     public static double scaleInput(double number) {

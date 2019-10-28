@@ -30,6 +30,7 @@ public class RedSideBasic extends LinearOpMode {
 
         waitForStart();
 
+        //Go left to the red line
         while(!isred) {
             isred = (CS.red()>100);
 

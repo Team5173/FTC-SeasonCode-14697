@@ -30,6 +30,7 @@ public class BlueSideBasic extends LinearOpMode {
 
         waitForStart();
 
+        //Go right to the blue line
         while(!isBlue) {
             isBlue = (CS.blue()>100);
 

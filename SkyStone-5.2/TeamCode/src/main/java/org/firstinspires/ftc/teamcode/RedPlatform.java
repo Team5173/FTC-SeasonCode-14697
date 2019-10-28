@@ -40,32 +40,63 @@ public class RedPlatform extends LinearOpMode {
 
         waitForStart();
 
+        //Go Forward to the Platform
         FL.setPower(-1);
         FR.setPower(-1);
         BL.setPower(-1);
         BR.setPower(-1);
 
-        sleep(2300);
+        sleep(1750);
 
+        // stop motors
+        FL.setPower(0);
+        FR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
+        sleep(1000);
+
+        //Set the servos to grab the platform
         LSV.setPosition(0.6);
         RSV.setPosition(0.6);
 
-        wait(1000);
+        sleep(1000);
 
-        FL.setPower(-1);
-        FR.setPower(1);
-        BL.setPower(1);
-        BR.setPower(-1);
+        // stop motors
+        FL.setPower(0);
+        FR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
+        sleep(1000);
 
-        sleep(1500);
-
+        //Go Backwards while pulling the platform
         FL.setPower(1);
         FR.setPower(1);
         BL.setPower(1);
         BR.setPower(1);
 
-        sleep(3000);
+        sleep(2750);
 
+        // stop motors
+        FL.setPower(0);
+        FR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
+
+        //Set servos so we can slide away from the platform
+        LSV.setPosition(0.0);
+        RSV.setPosition(0.0);
+
+        sleep(2000);
+
+        //goes left for one second
+        FL.setPower(0.65);
+        FR.setPower(-0.65);
+        BL.setPower(-0.65);
+        BR.setPower(0.65);
+
+        sleep(1000);
+
+        //Go left till the red line
         while(!isred) {
             isred = (CS.red()>100);
 
