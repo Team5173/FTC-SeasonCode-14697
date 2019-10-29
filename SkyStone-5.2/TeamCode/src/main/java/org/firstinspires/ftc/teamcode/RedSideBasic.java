@@ -34,10 +34,10 @@ public class RedSideBasic extends LinearOpMode {
         while(!isred) {
             isred = (CS.red()>100);
 
-            FL.setPower(0.65);
-            FR.setPower(-0.65);
-            BL.setPower(-0.65);
-            BR.setPower(0.65);
+            FL.setPower(-0.65);
+            FR.setPower(0.65);
+            BL.setPower(0.65);
+            BR.setPower(-0.65);
 
         }
         // stop motors

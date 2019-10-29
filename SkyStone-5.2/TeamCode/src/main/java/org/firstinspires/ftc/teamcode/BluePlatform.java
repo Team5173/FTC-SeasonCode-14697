@@ -39,12 +39,12 @@ public class BluePlatform extends LinearOpMode {
         waitForStart();
 
         //Go Forward to the Platform
-        FL.setPower(-1);
-        FR.setPower(-1);
-        BL.setPower(-1);
-        BR.setPower(-1);
+        FL.setPower(1);
+        FR.setPower(1);
+        BL.setPower(1);
+        BR.setPower(1);
 
-        sleep(1750);
+        sleep(1550);
 
         // stop motors
         FL.setPower(0);
@@ -67,10 +67,10 @@ public class BluePlatform extends LinearOpMode {
         sleep(1000);
 
         //Go Backwards while pulling the platform
-        FL.setPower(1);
-        FR.setPower(1);
-        BL.setPower(1);
-        BR.setPower(1);
+        FL.setPower(-1);
+        FR.setPower(-1);
+        BL.setPower(-1);
+        BR.setPower(-1);
 
         sleep(2750);
 
@@ -87,10 +87,10 @@ public class BluePlatform extends LinearOpMode {
         sleep(2000);
 
         //goes right for one second
-        FL.setPower(-0.65);
-        FR.setPower(0.65);
-        BL.setPower(0.65);
-        BR.setPower(-0.65);
+        FL.setPower(0.65);
+        FR.setPower(-0.65);
+        BL.setPower(-0.65);
+        BR.setPower(0.65);
 
         sleep(1000);
 
@@ -98,10 +98,10 @@ public class BluePlatform extends LinearOpMode {
         while(!isblue) {
             isblue = (CS.blue()>100);
 
-            FL.setPower(-0.65);
-            FR.setPower(0.65);
-            BL.setPower(0.65);
-            BR.setPower(-0.65);
+            FL.setPower(0.65);
+            FR.setPower(-0.65);
+            BL.setPower(-0.65);
+            BR.setPower(0.65);
 
         }
         // stop motors

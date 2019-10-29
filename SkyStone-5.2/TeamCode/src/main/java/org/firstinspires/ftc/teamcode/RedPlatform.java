@@ -41,12 +41,12 @@ public class RedPlatform extends LinearOpMode {
         waitForStart();
 
         //Go Forward to the Platform
-        FL.setPower(-1);
-        FR.setPower(-1);
-        BL.setPower(-1);
-        BR.setPower(-1);
+        FL.setPower(1);
+        FR.setPower(1);
+        BL.setPower(1);
+        BR.setPower(1);
 
-        sleep(1750);
+        sleep(1550);
 
         // stop motors
         FL.setPower(0);
@@ -69,10 +69,10 @@ public class RedPlatform extends LinearOpMode {
         sleep(1000);
 
         //Go Backwards while pulling the platform
-        FL.setPower(1);
-        FR.setPower(1);
-        BL.setPower(1);
-        BR.setPower(1);
+        FL.setPower(-1);
+        FR.setPower(-1);
+        BL.setPower(-1);
+        BR.setPower(-1);
 
         sleep(2750);
 
@@ -89,10 +89,10 @@ public class RedPlatform extends LinearOpMode {
         sleep(2000);
 
         //goes left for one second
-        FL.setPower(0.65);
-        FR.setPower(-0.65);
-        BL.setPower(-0.65);
-        BR.setPower(0.65);
+        FL.setPower(-0.65);
+        FR.setPower(0.65);
+        BL.setPower(0.65);
+        BR.setPower(-0.65);
 
         sleep(1000);
 
@@ -100,10 +100,10 @@ public class RedPlatform extends LinearOpMode {
         while(!isred) {
             isred = (CS.red()>100);
 
-            FL.setPower(0.65);
-            FR.setPower(-0.65);
-            BL.setPower(-0.65);
-            BR.setPower(0.65);
+            FL.setPower(-0.65);
+            FR.setPower(0.65);
+            BL.setPower(0.65);
+            BR.setPower(-0.65);
 
         }
             // stop motors

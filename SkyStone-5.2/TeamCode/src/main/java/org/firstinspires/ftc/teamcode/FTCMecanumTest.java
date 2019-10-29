@@ -79,7 +79,7 @@ public class FTCMecanumTest extends OpMode {
     }
 
     public void loop() {
-        double Speed = gamepad1.left_stick_y;
+        double Speed = -gamepad1.left_stick_y;
         double Turn = gamepad1.left_stick_x;
         double Strafe = gamepad1.right_stick_x;
         double MAX_SPEED = 1.0;
