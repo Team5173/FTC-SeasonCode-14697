@@ -36,10 +36,11 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robot.Robot;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-
+import com.qualcomm.hardware.rev.RevSPARKMini;
 
 @TeleOp(name="Mecanum", group="Iterative Opmode")
 public class FTCMecanumTest extends OpMode {
@@ -50,9 +51,14 @@ public class FTCMecanumTest extends OpMode {
     private DcMotor FR = null;
     private DcMotor BL = null;
     private DcMotor BR = null;
+    private DcMotorSimple AM = null;
 
     private ColorSensor CS = null;
 
+    private Servo LSV = null;
+    private Servo RSV = null;
+    private Servo Wrist1 = null;
+    private Servo Wrist2 = null;
 
     public void init() {
         telemetry.addData("Status", "Initialized");
@@ -62,10 +68,17 @@ public class FTCMecanumTest extends OpMode {
         BL = hardwareMap.get(DcMotor.class, "BL");
         BR = hardwareMap.get(DcMotor.class, "BR");
 
+        AM = hardwareMap.get(DcMotorSimple.class, "AM");
+
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
 
         CS = hardwareMap.get(ColorSensor.class, "CS");
+
+        LSV = hardwareMap.get(Servo.class, "LSV");
+        RSV = hardwareMap.get(Servo.class, "RSV");
+        Wrist1 = hardwareMap.get(Servo.class, "Wrist1");
+        Wrist2 = hardwareMap.get(Servo.class, "Wrist2");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -80,9 +93,28 @@ public class FTCMecanumTest extends OpMode {
 
     public void loop() {
         double Speed = -gamepad1.left_stick_y;
-        double Turn = gamepad1.left_stick_x;
-        double Strafe = gamepad1.right_stick_x;
+        double Turn = -gamepad1.left_stick_x;
+        double Strafe = -gamepad1.right_stick_x;
         double MAX_SPEED = 1.0;
+
+        if(gamepad2.left_bumper){
+            LSV.setPosition(0.6);
+            RSV.setPosition(0.6);
+        }else if(gamepad2.right_bumper){
+            LSV.setPosition(0.0);
+            RSV.setPosition(0.0);
+        }
+
+        if(gamepad2.x){
+            Wrist1.setPosition(1);
+            Wrist2.setPosition(1);
+        }else if(gamepad2.a){
+            Wrist1.setPosition(0.0);
+            Wrist2.setPosition(0.0);
+        }
+
+        AM.setPower(gamepad2.right_stick_y * 0.7);
+
 
         holonomic(Speed, Turn, Strafe, MAX_SPEED);
 
