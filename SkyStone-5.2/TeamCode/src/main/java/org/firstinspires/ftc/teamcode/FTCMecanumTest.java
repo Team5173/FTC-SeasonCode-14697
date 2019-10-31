@@ -57,8 +57,7 @@ public class FTCMecanumTest extends OpMode {
 
     private Servo LSV = null;
     private Servo RSV = null;
-    private Servo Wrist1 = null;
-    private Servo Wrist2 = null;
+    private Servo wrist = null;
 
     public void init() {
         telemetry.addData("Status", "Initialized");
@@ -77,8 +76,7 @@ public class FTCMecanumTest extends OpMode {
 
         LSV = hardwareMap.get(Servo.class, "LSV");
         RSV = hardwareMap.get(Servo.class, "RSV");
-        Wrist1 = hardwareMap.get(Servo.class, "Wrist1");
-        Wrist2 = hardwareMap.get(Servo.class, "Wrist2");
+        wrist = hardwareMap.get(Servo.class, "wrist");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -106,11 +104,9 @@ public class FTCMecanumTest extends OpMode {
         }
 
         if(gamepad2.x){
-            Wrist1.setPosition(1);
-            Wrist2.setPosition(1);
+            wrist.setPosition(1);
         }else if(gamepad2.a){
-            Wrist1.setPosition(0.0);
-            Wrist2.setPosition(0.0);
+            wrist.setPosition(0.0);
         }
 
         AM.setPower(gamepad2.right_stick_y * 0.7);
