@@ -52,12 +52,12 @@ public class FTCMecanumTest extends OpMode {
     private DcMotor BL = null;
     private DcMotor BR = null;
     private DcMotorSimple AM = null;
+    private Servo clamp = null;
 
     private ColorSensor CS = null;
 
     private Servo LSV = null;
     private Servo RSV = null;
-    private Servo wrist = null;
 
     public void init() {
         telemetry.addData("Status", "Initialized");
@@ -73,10 +73,11 @@ public class FTCMecanumTest extends OpMode {
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
 
         CS = hardwareMap.get(ColorSensor.class, "CS");
+        AM = hardwareMap.get(DcMotorSimple.class, "AM");
+        clamp = hardwareMap.get(Servo.class, "clamp");
 
         LSV = hardwareMap.get(Servo.class, "LSV");
         RSV = hardwareMap.get(Servo.class, "RSV");
-        wrist = hardwareMap.get(Servo.class, "wrist");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -96,27 +97,38 @@ public class FTCMecanumTest extends OpMode {
         double MAX_SPEED = 1.0;
 
         if(gamepad2.left_bumper){
-            LSV.setPosition(0.6);
-            RSV.setPosition(0.6);
+            LSV.setPosition(0.5);
+            RSV.setPosition(0.5);
         }else if(gamepad2.right_bumper){
             LSV.setPosition(0.0);
             RSV.setPosition(0.0);
         }
 
-        if(gamepad2.x){
-            wrist.setPosition(1);
-        }else if(gamepad2.a){
-            wrist.setPosition(0.0);
+        if(gamepad2.a){
+            clamp.setPosition(0.0);
+        }else if(gamepad2.x){
+            clamp.setPosition(.55);
         }
 
-        AM.setPower(gamepad2.right_stick_y * 0.7);
 
+        if((FL.getCurrentPosition() >= 1075) && (gamepad2.right_stick_y < 0)){
+            AM.setPower(0.0);
+        }else if((FL.getCurrentPosition() <= 15) && (gamepad2.right_stick_y > 0)){
+            AM.setPower(0.0);
+        }else{
+            if(Math.abs(gamepad2.right_stick_y) < 0.1){
+                AM.setPower(-0.07);
+            }else{
+                AM.setPower(gamepad2.right_stick_y * 0.7);
+            }
+        }
 
         holonomic(Speed, Turn, Strafe, MAX_SPEED);
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Color", CS.red());
+        telemetry.addData("Arm Encoder", FL.getCurrentPosition());
     }
 
     public static double scaleInput(double number) {
