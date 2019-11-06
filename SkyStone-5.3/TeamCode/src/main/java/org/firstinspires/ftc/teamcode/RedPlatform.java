@@ -21,10 +21,13 @@ public class RedPlatform extends LinearOpMode {
     private DcMotor BR = null;
     private Servo RSV = null;
     private Servo LSV = null;
+    private DcMotorSimple AM;
     boolean isred = false;
 
 
     public void runOpMode() throws InterruptedException {
+        final int ARM_RAISE_TIME = 350;
+        final int ARM_LOWER_TIME = 200;
 
         CS= hardwareMap.get(ColorSensor.class , "CS");
         FL = hardwareMap.get(DcMotor.class, "FL");
@@ -35,10 +38,14 @@ public class RedPlatform extends LinearOpMode {
         LSV = hardwareMap.get(Servo.class, "LSV");
         RSV = hardwareMap.get(Servo.class, "RSV");
 
+        AM = hardwareMap.get(DcMotorSimple.class, "AM");
+
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
+
+        AM.setPower(-0.5);                                                      // Start arm raise
 
         //Go Forward to the Platform
         FL.setPower(1);
@@ -46,7 +53,10 @@ public class RedPlatform extends LinearOpMode {
         BL.setPower(1);
         BR.setPower(1);
 
-        sleep(1550);
+        sleep(ARM_RAISE_TIME);                                                  // Drive and raise simultaneously
+        AM.setPower(-0.07);                                                     // Arm hold current
+
+        sleep(1550 - ARM_RAISE_TIME);
 
         // stop motors
         FL.setPower(0);
@@ -94,7 +104,10 @@ public class RedPlatform extends LinearOpMode {
         BL.setPower(0.65);
         BR.setPower(-0.65);
 
-        sleep(1000);
+        sleep(1000-ARM_LOWER_TIME);
+        AM.setPower(0.25);                                                      // Start lowering arm
+        sleep(ARM_LOWER_TIME);
+        AM.setPower(0);
 
         //Go left till the red line
         while(!isred) {
