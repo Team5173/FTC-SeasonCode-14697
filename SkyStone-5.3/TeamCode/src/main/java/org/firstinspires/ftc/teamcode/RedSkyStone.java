@@ -2,15 +2,13 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-
-@Autonomous(name = "BlueSide Platform")
-public class BluePlatform extends LinearOpMode {
+@Autonomous(name = "RedSkyStone")
+public class RedSkyStone extends LinearOpMode {
 
     private ColorSensor CS;
     private DcMotor FL = null;
@@ -19,115 +17,99 @@ public class BluePlatform extends LinearOpMode {
     private DcMotor BR = null;
     private Servo RSV = null;
     private Servo LSV = null;
-    private DcMotorSimple AM = null;
-    boolean isblue = false;
+    private DcMotorSimple AM;
+    boolean isred = false;
+    private Servo clamp;
 
 
     public void runOpMode() throws InterruptedException {
+        final int ARM_RAISE_TIME = 350;
+        final int ARM_LOWER_TIME = 200;
 
         CS= hardwareMap.get(ColorSensor.class , "CS");
         FL = hardwareMap.get(DcMotor.class, "FL");
         FR = hardwareMap.get(DcMotor.class, "FR");
         BL = hardwareMap.get(DcMotor.class, "BL");
         BR = hardwareMap.get(DcMotor.class, "BR");
-        AM = hardwareMap.get(DcMotorSimple.class, "AM");
 
         LSV = hardwareMap.get(Servo.class, "LSV");
         RSV = hardwareMap.get(Servo.class, "RSV");
+        clamp = hardwareMap.get(Servo.class, "clamp");
+
+        AM = hardwareMap.get(DcMotorSimple.class, "AM");
+
 
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        final int ARM_RAISE_TIME = 350;
-        final int ARM_LOWER_TIME = 200;
-
         waitForStart();
 
-        AM.setPower(-0.5);
+        clamp.setPosition(0.0);
 
-        //Go Forward to the Platform
+        //Go Forward to the SkyStone
         FL.setPower(1);
         FR.setPower(1);
         BL.setPower(1);
         BR.setPower(1);
 
-        sleep(ARM_RAISE_TIME);
+        sleep(1550);
 
-        AM.setPower(-0.07);
-
-        sleep(1550-ARM_RAISE_TIME);
-
-        // stop motors
+        //Stop motors and clamp the SkyStone
         FL.setPower(0);
         FR.setPower(0);
         BL.setPower(0);
         BR.setPower(0);
-        sleep(1000);
 
-        //Set the servos to grab the platform
-        LSV.setPosition(0.6);
-        RSV.setPosition(0.6);
+        clamp.setPosition(.7);
 
         sleep(1000);
 
-        // stop motors
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
-        sleep(1000);
-
-        //Go Backwards while pulling the platform
+        //Go backwards a little
         FL.setPower(-1);
         FR.setPower(-1);
         BL.setPower(-1);
         BR.setPower(-1);
+        sleep(575);
 
-        sleep(2750);
-
-        // stop motors
         FL.setPower(0);
         FR.setPower(0);
         BL.setPower(0);
         BR.setPower(0);
 
-        //Set servos so we can slide away from the platform
-        LSV.setPosition(0.0);
-        RSV.setPosition(0.0);
+        sleep(1000);
 
-        sleep(2000);
+        //Turn right to the red line
+        FL.setPower(-1);
+        FR.setPower(1);
+        BL.setPower(-1);
+        BR.setPower(1);
 
-        //goes right for one second
-        FL.setPower(0.65);
-        FR.setPower(-0.65);
-        BL.setPower(-0.65);
-        BR.setPower(0.65);
+        sleep(750);
 
-        sleep(1000-ARM_LOWER_TIME);
+        FL.setPower(0);
+        FR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
 
-        AM.setPower(0.25);
+        sleep(1000);
 
-        sleep(ARM_LOWER_TIME);
-
-        AM.setPower(0);
-
-        //Go right until the red line
-        while(!isblue) {
-            isblue = (CS.blue()>100);
+        //Go forward till the red line
+        while(!isred) {
+            isred = (CS.red()>100);
 
             FL.setPower(0.65);
-            FR.setPower(-0.65);
-            BL.setPower(-0.65);
+            FR.setPower(0.65);
+            BL.setPower(0.65);
             BR.setPower(0.65);
 
         }
-        // stop motors
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
+            // stop motors
+            FL.setPower(0);
+            FR.setPower(0);
+            BL.setPower(0);
+            BR.setPower(0);
 
-        telemetry.addData("Color", CS.red());
-        telemetry.update();
+            telemetry.addData("Color", CS.red());
+            telemetry.update();
     }
 }

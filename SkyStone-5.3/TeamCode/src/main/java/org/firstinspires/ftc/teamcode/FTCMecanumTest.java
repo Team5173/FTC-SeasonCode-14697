@@ -96,10 +96,10 @@ public class FTCMecanumTest extends OpMode {
         double Strafe = -gamepad1.right_stick_x;
         double MAX_SPEED = 1.0;
 
-        if(gamepad2.left_bumper){
+        if(gamepad1.left_bumper){
             LSV.setPosition(0.5);
             RSV.setPosition(0.5);
-        }else if(gamepad2.right_bumper){
+        }else if(gamepad1.right_bumper){
             LSV.setPosition(0.0);
             RSV.setPosition(0.0);
         }

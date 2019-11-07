@@ -2,15 +2,14 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@Autonomous(name = "BlueSide Platform")
-public class BluePlatform extends LinearOpMode {
+@Autonomous(name = "BlueSkyStone")
+public class BlueSkyStone extends LinearOpMode {
 
     private ColorSensor CS;
     private DcMotor FL = null;
@@ -43,17 +42,17 @@ public class BluePlatform extends LinearOpMode {
 
         waitForStart();
 
-        AM.setPower(-0.5);
 
-        //Go Forward to the Platform
+
+        //Go Forward to the SkyStone
         FL.setPower(1);
         FR.setPower(1);
         BL.setPower(1);
         BR.setPower(1);
 
-        sleep(ARM_RAISE_TIME);
+        sleep(1550);
 
-        AM.setPower(-0.07);
+
 
         sleep(1550-ARM_RAISE_TIME);
 
