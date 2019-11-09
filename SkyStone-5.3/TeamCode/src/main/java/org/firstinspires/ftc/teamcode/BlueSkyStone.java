@@ -19,6 +19,7 @@ public class BlueSkyStone extends LinearOpMode {
     private Servo RSV = null;
     private Servo LSV = null;
     private DcMotorSimple AM = null;
+    private Servo clamp = null;
     boolean isblue = false;
 
 
@@ -30,6 +31,7 @@ public class BlueSkyStone extends LinearOpMode {
         BL = hardwareMap.get(DcMotor.class, "BL");
         BR = hardwareMap.get(DcMotor.class, "BR");
         AM = hardwareMap.get(DcMotorSimple.class, "AM");
+        clamp = hardwareMap.get(Servo.class, "clamp");
 
         LSV = hardwareMap.get(Servo.class, "LSV");
         RSV = hardwareMap.get(Servo.class, "RSV");
@@ -37,12 +39,9 @@ public class BlueSkyStone extends LinearOpMode {
         FL.setDirection(DcMotorSimple.Direction.REVERSE);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        final int ARM_RAISE_TIME = 350;
-        final int ARM_LOWER_TIME = 200;
-
         waitForStart();
 
-
+        clamp.setPosition(0.0);
 
         //Go Forward to the SkyStone
         FL.setPower(1);
@@ -52,81 +51,74 @@ public class BlueSkyStone extends LinearOpMode {
 
         sleep(1550);
 
+        //Stop motors and clamp the SkyStone
+        stopMotor();
 
-
-        sleep(1550-ARM_RAISE_TIME);
-
-        // stop motors
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
-        sleep(1000);
-
-        //Set the servos to grab the platform
-        LSV.setPosition(0.6);
-        RSV.setPosition(0.6);
+        clamp.setPosition(.7);
 
         sleep(1000);
 
-        // stop motors
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
-        sleep(1000);
-
-        //Go Backwards while pulling the platform
+        //Go backwards a little
         FL.setPower(-1);
         FR.setPower(-1);
         BL.setPower(-1);
         BR.setPower(-1);
+        sleep(575);
 
-        sleep(2750);
+        stopMotor();
 
-        // stop motors
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
+        sleep(1000);
 
-        //Set servos so we can slide away from the platform
-        LSV.setPosition(0.0);
-        RSV.setPosition(0.0);
+        //Turn left to the blue line
+        FL.setPower(1);
+        FR.setPower(-1);
+        BL.setPower(1);
+        BR.setPower(-1);
 
-        sleep(2000);
+        sleep(750);
 
-        //goes right for one second
-        FL.setPower(0.65);
-        FR.setPower(-0.65);
-        BL.setPower(-0.65);
-        BR.setPower(0.65);
+        stopMotor();
 
-        sleep(1000-ARM_LOWER_TIME);
+        sleep(1000);
 
-        AM.setPower(0.25);
-
-        sleep(ARM_LOWER_TIME);
-
-        AM.setPower(0);
-
-        //Go right until the red line
+        //Go forward until the blue line
         while(!isblue) {
             isblue = (CS.blue()>100);
 
             FL.setPower(0.65);
-            FR.setPower(-0.65);
-            BL.setPower(-0.65);
+            FR.setPower(0.65);
+            BL.setPower(0.65);
             BR.setPower(0.65);
 
         }
+
+            FL.setPower(0.65);
+            FR.setPower(0.65);
+            BL.setPower(0.65);
+            BR.setPower(0.65);
+
+         sleep(1000);
+        isblue = false;
+        while(!isblue) {
+            isblue = (CS.blue()>100);
+
+            FL.setPower(-0.65);
+            FR.setPower(-0.65);
+            BL.setPower(-0.65);
+            BR.setPower(-0.65);
+
+        }
+
         // stop motors
+        stopMotor();
+
+        telemetry.addData("Color", CS.red());
+        telemetry.update();
+    }
+    public void stopMotor(){
         FL.setPower(0);
         FR.setPower(0);
         BL.setPower(0);
         BR.setPower(0);
-
-        telemetry.addData("Color", CS.red());
-        telemetry.update();
     }
 }

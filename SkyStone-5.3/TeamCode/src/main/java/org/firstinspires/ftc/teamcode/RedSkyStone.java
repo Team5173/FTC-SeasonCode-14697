@@ -55,10 +55,7 @@ public class RedSkyStone extends LinearOpMode {
         sleep(1550);
 
         //Stop motors and clamp the SkyStone
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
+        stopMotor();
 
         clamp.setPosition(.7);
 
@@ -71,10 +68,7 @@ public class RedSkyStone extends LinearOpMode {
         BR.setPower(-1);
         sleep(575);
 
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
+        stopMotor();
 
         sleep(1000);
 
@@ -86,10 +80,7 @@ public class RedSkyStone extends LinearOpMode {
 
         sleep(750);
 
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
+        stopMotor();
 
         sleep(1000);
 
@@ -103,13 +94,35 @@ public class RedSkyStone extends LinearOpMode {
             BR.setPower(0.65);
 
         }
-            // stop motors
-            FL.setPower(0);
-            FR.setPower(0);
-            BL.setPower(0);
-            BR.setPower(0);
+        FL.setPower(0.65);
+        FR.setPower(0.65);
+        BL.setPower(0.65);
+        BR.setPower(0.65);
+
+        sleep(1000);
+        isred = false;
+        while(!isred) {
+            isred = (CS.red()>100);
+
+            FL.setPower(-0.65);
+            FR.setPower(-0.65);
+            BL.setPower(-0.65);
+            BR.setPower(-0.65);
+
+        }
+
+        // stop motors
+        stopMotor();
 
             telemetry.addData("Color", CS.red());
             telemetry.update();
     }
+
+    public void stopMotor(){
+        FL.setPower(0);
+        FR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
+    }
+
 }

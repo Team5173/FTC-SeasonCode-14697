@@ -72,10 +72,7 @@ public class RedPlatform extends LinearOpMode {
         sleep(1000);
 
         // stop motors
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
+        stopMotor();
         sleep(1000);
 
         //Go Backwards while pulling the platform
@@ -87,10 +84,7 @@ public class RedPlatform extends LinearOpMode {
         sleep(2750);
 
         // stop motors
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
+        stopMotor();
 
         //Set servos so we can slide away from the platform
         LSV.setPosition(0.0);
@@ -98,13 +92,13 @@ public class RedPlatform extends LinearOpMode {
 
         sleep(2000);
 
-        //goes left for one second
+        //goes left for one and a half seconds
         FL.setPower(-0.65);
         FR.setPower(0.65);
         BL.setPower(0.65);
         BR.setPower(-0.65);
 
-        sleep(1000-ARM_LOWER_TIME);
+        sleep(1500-ARM_LOWER_TIME);
         AM.setPower(0.25);                                                      // Start lowering arm
         sleep(ARM_LOWER_TIME);
         AM.setPower(0);
@@ -120,12 +114,17 @@ public class RedPlatform extends LinearOpMode {
 
         }
             // stop motors
-            FL.setPower(0);
-            FR.setPower(0);
-            BL.setPower(0);
-            BR.setPower(0);
+            stopMotor();
 
             telemetry.addData("Color", CS.red());
             telemetry.update();
     }
+
+    public void stopMotor(){
+        FL.setPower(0);
+        FR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
+    }
+
 }

@@ -58,23 +58,13 @@ public class BluePlatform extends LinearOpMode {
         sleep(1550-ARM_RAISE_TIME);
 
         // stop motors
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
+        stopMotor();
         sleep(1000);
 
         //Set the servos to grab the platform
         LSV.setPosition(0.6);
         RSV.setPosition(0.6);
 
-        sleep(1000);
-
-        // stop motors
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
         sleep(1000);
 
         //Go Backwards while pulling the platform
@@ -86,10 +76,7 @@ public class BluePlatform extends LinearOpMode {
         sleep(2750);
 
         // stop motors
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
+        stopMotor();
 
         //Set servos so we can slide away from the platform
         LSV.setPosition(0.0);
@@ -97,13 +84,13 @@ public class BluePlatform extends LinearOpMode {
 
         sleep(2000);
 
-        //goes right for one second
+        //goes right for one and a half seconds
         FL.setPower(0.65);
         FR.setPower(-0.65);
         BL.setPower(-0.65);
         BR.setPower(0.65);
 
-        sleep(1000-ARM_LOWER_TIME);
+        sleep(1500-ARM_LOWER_TIME);
 
         AM.setPower(0.25);
 
@@ -122,12 +109,17 @@ public class BluePlatform extends LinearOpMode {
 
         }
         // stop motors
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
+        stopMotor();
 
         telemetry.addData("Color", CS.red());
         telemetry.update();
     }
+
+    public void stopMotor(){
+        FL.setPower(0);
+        FR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
+    }
+
 }

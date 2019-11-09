@@ -108,6 +108,8 @@ public class FTCMecanumTest extends OpMode {
             clamp.setPosition(0.0);
         }else if(gamepad2.x){
             clamp.setPosition(.65);
+        }else if(gamepad2.y){
+            clamp.setPosition(0.7);
         }
 
 
