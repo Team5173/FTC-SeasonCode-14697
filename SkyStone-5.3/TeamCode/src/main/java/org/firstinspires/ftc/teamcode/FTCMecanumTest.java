@@ -104,13 +104,14 @@ public class FTCMecanumTest extends OpMode {
             RSV.setPosition(0.0);
         }
 
-        if(gamepad2.a){
+        if(gamepad2.left_trigger > 0.2){
             clamp.setPosition(0.0);
-        }else if(gamepad2.x){
+        }else if(gamepad2.right_trigger > 0.2){
             clamp.setPosition(.65);
-        }else if(gamepad2.y){
-            clamp.setPosition(0.7);
         }
+        /*else if(gamepad2.y){
+            clamp.setPosition(0.7);
+        }*/
 
 
         if((FL.getCurrentPosition() >= 1075) && (gamepad2.right_stick_y < 0)){
@@ -121,7 +122,7 @@ public class FTCMecanumTest extends OpMode {
             if(Math.abs(gamepad2.right_stick_y) < 0.1){
                 AM.setPower(-0.07);
             }else{
-                AM.setPower(gamepad2.right_stick_y * 0.7);
+                AM.setPower(gamepad2.right_stick_y * 0.6);
             }
         }
 
