@@ -56,7 +56,7 @@ public class RedPlatform extends LinearOpMode {
         sleep(ARM_RAISE_TIME);                                                  // Drive and raise simultaneously
         AM.setPower(-0.07);                                                     // Arm hold current
 
-        sleep(1550 - ARM_RAISE_TIME);
+        sleep(1050 - ARM_RAISE_TIME);
 
         // stop motors
         FL.setPower(0);
@@ -74,6 +74,14 @@ public class RedPlatform extends LinearOpMode {
         // stop motors
         stopMotor();
         sleep(1000);
+
+        //Go right for an eigth of a second
+        FL.setPower(0.65);
+        FR.setPower(-0.65);
+        BL.setPower(-0.65);
+        BR.setPower(0.65);
+
+        sleep(800);
 
         //Go Backwards while pulling the platform
         FL.setPower(-1);

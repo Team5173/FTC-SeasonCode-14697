@@ -55,7 +55,7 @@ public class BluePlatform extends LinearOpMode {
 
         AM.setPower(-0.07);
 
-        sleep(1550-ARM_RAISE_TIME);
+        sleep(1050 - ARM_RAISE_TIME);
 
         // stop motors
         stopMotor();
@@ -66,6 +66,14 @@ public class BluePlatform extends LinearOpMode {
         RSV.setPosition(0.6);
 
         sleep(1000);
+
+        //Go left for an eigth of a second
+        FL.setPower(-0.65);
+        FR.setPower(0.65);
+        BL.setPower(0.65);
+        BR.setPower(-0.65);
+
+        sleep(800);
 
         //Go Backwards while pulling the platform
         FL.setPower(-1);
