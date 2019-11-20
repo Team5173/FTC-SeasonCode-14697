@@ -25,7 +25,7 @@ public class BlueSkyStone extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
 
-        CS= hardwareMap.get(ColorSensor.class , "CS");
+        CS = hardwareMap.get(ColorSensor.class, "CS");
         FL = hardwareMap.get(DcMotor.class, "FL");
         FR = hardwareMap.get(DcMotor.class, "FR");
         BL = hardwareMap.get(DcMotor.class, "BL");
@@ -44,68 +44,50 @@ public class BlueSkyStone extends LinearOpMode {
         clamp.setPosition(0.0);
 
         //Go Forward to the SkyStone
-        FL.setPower(1);
-        FR.setPower(1);
-        BL.setPower(1);
-        BR.setPower(1);
+        goForward(0.65);
 
-        sleep(1550);
+        sleep(775);
 
         //Stop motors and clamp the SkyStone
         stopMotor();
 
         clamp.setPosition(.7);
 
-        sleep(1000);
+        sleep(500);
 
         //Go backwards a little
-        FL.setPower(-1);
-        FR.setPower(-1);
-        BL.setPower(-1);
-        BR.setPower(-1);
-        sleep(575);
+       goBackward(0.65);
+        sleep(287);
 
         stopMotor();
 
-        sleep(1000);
+        sleep(500);
 
         //Turn left to the blue line
-        FL.setPower(1);
-        FR.setPower(-1);
-        BL.setPower(1);
-        BR.setPower(-1);
+       turnLeft();
 
-        sleep(750);
+        sleep(375);
 
         stopMotor();
 
-        sleep(1000);
+        sleep(500);
 
         //Go forward until the blue line
-        while(!isblue) {
-            isblue = (CS.blue()>100);
+        while (!isblue) {
+            isblue = (CS.blue() > 100);
 
-            FL.setPower(0.65);
-            FR.setPower(0.65);
-            BL.setPower(0.65);
-            BR.setPower(0.65);
+            goForward(0.4);
 
         }
 
-            FL.setPower(0.65);
-            FR.setPower(0.65);
-            BL.setPower(0.65);
-            BR.setPower(0.65);
+        goForward(0.5);
 
-         sleep(1000);
+        sleep(500);
         isblue = false;
-        while(!isblue) {
-            isblue = (CS.blue()>100);
+        while (!isblue) {
+            isblue = (CS.blue() > 100);
 
-            FL.setPower(-0.65);
-            FR.setPower(-0.65);
-            BL.setPower(-0.65);
-            BR.setPower(-0.65);
+            goBackward(0.4);
 
         }
 
@@ -115,10 +97,56 @@ public class BlueSkyStone extends LinearOpMode {
         telemetry.addData("Color", CS.red());
         telemetry.update();
     }
-    public void stopMotor(){
+
+    public void stopMotor() {
         FL.setPower(0);
         FR.setPower(0);
         BL.setPower(0);
         BR.setPower(0);
+    }
+
+
+    public void goBackward(double sp) {
+        FL.setPower(sp);
+        FR.setPower(sp);
+        BL.setPower(sp);
+        BR.setPower(sp);
+    }
+
+    public void strafeLeft(double sp) {
+        FL.setPower(sp);
+        FR.setPower(-sp);
+        BL.setPower(-sp);
+        BR.setPower(sp);
+
+    }
+
+    public void goForward(double sp) {
+        FL.setPower(-sp);
+        FR.setPower(-sp);
+        BL.setPower(-sp);
+        BR.setPower(-sp);
+    }
+    public void strafeRight(double sp) {
+        FL.setPower(sp);
+        FR.setPower(-sp);
+        BL.setPower(-sp);
+        BR.setPower(sp);
+    }
+
+
+    public void turnLeft() {
+        FL.setPower(1);
+        FR.setPower(-1);
+        BL.setPower(1);
+        BR.setPower(-1);
+    }
+
+
+    public void turnRight() {
+        FL.setPower(-1);
+        FR.setPower(1);
+        BL.setPower(-1);
+        BR.setPower(1);
     }
 }

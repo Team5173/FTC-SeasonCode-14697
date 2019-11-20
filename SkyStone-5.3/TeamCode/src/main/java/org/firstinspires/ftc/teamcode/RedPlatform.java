@@ -29,7 +29,7 @@ public class RedPlatform extends LinearOpMode {
         final int ARM_RAISE_TIME = 350;
         final int ARM_LOWER_TIME = 200;
 
-        CS= hardwareMap.get(ColorSensor.class , "CS");
+        CS = hardwareMap.get(ColorSensor.class, "CS");
         FL = hardwareMap.get(DcMotor.class, "FL");
         FR = hardwareMap.get(DcMotor.class, "FR");
         BL = hardwareMap.get(DcMotor.class, "BL");
@@ -48,48 +48,37 @@ public class RedPlatform extends LinearOpMode {
         AM.setPower(-0.5);                                                      // Start arm raise
 
         //Go Forward to the Platform
-        FL.setPower(1);
-        FR.setPower(1);
-        BL.setPower(1);
-        BR.setPower(1);
 
+        goForward();
         sleep(ARM_RAISE_TIME);                                                  // Drive and raise simultaneously
         AM.setPower(-0.07);                                                     // Arm hold current
 
-        sleep(1050 - ARM_RAISE_TIME);
+        sleep(600 - ARM_RAISE_TIME);
 
         // stop motors
-        FL.setPower(0);
-        FR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
-        sleep(1000);
+
+        stopMotor();
+        sleep(500);
 
         //Set the servos to grab the platform
         LSV.setPosition(0.6);
         RSV.setPosition(0.6);
 
-        sleep(1000);
+        sleep(500);
 
         // stop motors
         stopMotor();
-        sleep(1000);
+        sleep(500);
 
         //Go right for an eigth of a second
-        FL.setPower(0.65);
-        FR.setPower(-0.65);
-        BL.setPower(-0.65);
-        BR.setPower(0.65);
 
-        sleep(800);
+        strafeRight(0.65);
+        sleep(400);
 
         //Go Backwards while pulling the platform
-        FL.setPower(-1);
-        FR.setPower(-1);
-        BL.setPower(-1);
-        BR.setPower(-1);
 
-        sleep(2750);
+        goBackward();
+        sleep(1375);
 
         // stop motors
         stopMotor();
@@ -98,41 +87,78 @@ public class RedPlatform extends LinearOpMode {
         LSV.setPosition(0.0);
         RSV.setPosition(0.0);
 
-        sleep(2000);
+        sleep(1000);
 
         //goes left for one and a half seconds
-        FL.setPower(-0.65);
-        FR.setPower(0.65);
-        BL.setPower(0.65);
-        BR.setPower(-0.65);
 
-        sleep(1500-ARM_LOWER_TIME);
+        strafeLeft(0.65);
+        sleep(750 - ARM_LOWER_TIME);
         AM.setPower(0.25);                                                      // Start lowering arm
         sleep(ARM_LOWER_TIME);
         AM.setPower(0);
 
-        //Go left till the red line
-        while(!isred) {
-            isred = (CS.red()>100);
+        //Go left until the red line
+        while (!isred) {
+            isred = (CS.red() > 100);
 
-            FL.setPower(-0.65);
-            FR.setPower(0.65);
-            BL.setPower(0.65);
-            BR.setPower(-0.65);
 
+            strafeLeft(0.4);
         }
-            // stop motors
-            stopMotor();
+        // stop motors
+        stopMotor();
 
-            telemetry.addData("Color", CS.red());
-            telemetry.update();
+        telemetry.addData("Color", CS.red());
+        telemetry.update();
     }
 
-    public void stopMotor(){
+    public void stopMotor() {
         FL.setPower(0);
         FR.setPower(0);
         BL.setPower(0);
         BR.setPower(0);
     }
 
+    public void strafeRight(double sp) {
+        FL.setPower(-sp);
+        FR.setPower(sp);
+        BL.setPower(sp);
+        BR.setPower(-sp);
+
+    }
+
+    public void goForward() {
+        FL.setPower(-0.65);
+        FR.setPower(-0.65);
+        BL.setPower(-0.65);
+        BR.setPower(-0.65);
+    }
+
+    public void strafeLeft(double sp) {
+        FL.setPower(sp);
+        FR.setPower(-sp);
+        BL.setPower(-sp);
+        BR.setPower(sp);
+    }
+    public void goBackward(){
+        FL.setPower(0.65);
+        FR.setPower(0.65);
+        BL.setPower(0.65);
+        BR.setPower(0.65);
+    }
+
+
+    public void turnLeft() {
+        FL.setPower(1);
+        FR.setPower(-1);
+        BL.setPower(1);
+        BR.setPower(-1);
+    }
+
+
+    public void turnRight() {
+        FL.setPower(-1);
+        FR.setPower(1);
+        BL.setPower(-1);
+        BR.setPower(1);
+    }
 }

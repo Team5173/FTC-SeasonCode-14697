@@ -47,67 +47,49 @@ public class RedSkyStone extends LinearOpMode {
         clamp.setPosition(0.0);
 
         //Go Forward to the SkyStone
-        FL.setPower(1);
-        FR.setPower(1);
-        BL.setPower(1);
-        BR.setPower(1);
+        goForward(0.65);
 
-        sleep(1550);
+        sleep(775);
 
         //Stop motors and clamp the SkyStone
         stopMotor();
 
         clamp.setPosition(.7);
 
-        sleep(1000);
+        sleep(500);
 
-        //Go backwards a little
-        FL.setPower(-1);
-        FR.setPower(-1);
-        BL.setPower(-1);
-        BR.setPower(-1);
-        sleep(575);
+        //Go backwards a 0.5 seconds
+        goBackward(0.4);
+        sleep(287);
 
         stopMotor();
 
-        sleep(1000);
+        sleep(250);
 
         //Turn right to the red line
-        FL.setPower(-1);
-        FR.setPower(1);
-        BL.setPower(-1);
-        BR.setPower(1);
+        turnLeft();
 
-        sleep(750);
+        sleep(375);
 
         stopMotor();
 
-        sleep(1000);
+        sleep(500);
 
-        //Go forward till the red line
+        //Go forward until the red line
         while(!isred) {
             isred = (CS.red()>100);
 
-            FL.setPower(0.65);
-            FR.setPower(0.65);
-            BL.setPower(0.65);
-            BR.setPower(0.65);
+           goForward(0.4);
 
         }
-        FL.setPower(0.65);
-        FR.setPower(0.65);
-        BL.setPower(0.65);
-        BR.setPower(0.65);
+        goForward(0.5);
 
-        sleep(1000);
+        sleep(500);
         isred = false;
         while(!isred) {
             isred = (CS.red()>100);
 
-            FL.setPower(-0.65);
-            FR.setPower(-0.65);
-            BL.setPower(-0.65);
-            BR.setPower(-0.65);
+            goBackward(0.4);
 
         }
 
@@ -125,4 +107,47 @@ public class RedSkyStone extends LinearOpMode {
         BR.setPower(0);
     }
 
+    public void goBackward(double sp) {
+        FL.setPower(sp);
+        FR.setPower(sp);
+        BL.setPower(sp);
+        BR.setPower(sp);
+    }
+
+    public void strafeLeft(double sp) {
+        FL.setPower(sp);
+        FR.setPower(-sp);
+        BL.setPower(-sp);
+        BR.setPower(sp);
+
+    }
+
+    public void goForward(double sp) {
+        FL.setPower(-sp);
+        FR.setPower(-sp);
+        BL.setPower(-sp);
+        BR.setPower(-sp);
+    }
+    public void strafeRight(double sp) {
+        FL.setPower(sp);
+        FR.setPower(-sp);
+        BL.setPower(-sp);
+        BR.setPower(sp);
+    }
+
+
+    public void turnLeft() {
+        FL.setPower(1);
+        FR.setPower(-1);
+        BL.setPower(1);
+        BR.setPower(-1);
+    }
+
+
+    public void turnRight() {
+        FL.setPower(-1);
+        FR.setPower(1);
+        BL.setPower(-1);
+        BR.setPower(1);
+    }
 }
