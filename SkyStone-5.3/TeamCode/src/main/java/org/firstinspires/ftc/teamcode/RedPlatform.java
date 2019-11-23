@@ -53,7 +53,7 @@ public class RedPlatform extends LinearOpMode {
         sleep(ARM_RAISE_TIME);                                                  // Drive and raise simultaneously
         AM.setPower(-0.07);                                                     // Arm hold current
 
-        sleep(600 - ARM_RAISE_TIME);
+        sleep(650 - ARM_RAISE_TIME);
 
         // stop motors
 
