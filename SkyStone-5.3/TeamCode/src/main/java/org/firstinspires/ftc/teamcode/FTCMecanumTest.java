@@ -59,6 +59,7 @@ public class FTCMecanumTest extends OpMode {
     private Servo LSV = null;
     private Servo RSV = null;
 
+
     public void init() {
         telemetry.addData("Status", "Initialized");
 
@@ -91,10 +92,11 @@ public class FTCMecanumTest extends OpMode {
     }
 
     public void loop() {
-        double Speed = gamepad1.right_stick_y;
-        double Turn = -gamepad1.right_stick_x;
-        double Strafe = gamepad1.left_stick_x;
+        double Speed = Math.pow(gamepad1.right_stick_y, 3);
+        double Turn = Math.pow(-gamepad1.right_stick_x, 3);
+        double Strafe = Math.pow(gamepad1.left_stick_x, 3);
         double MAX_SPEED = 1.0;
+
 
         if(gamepad1.left_bumper){
             LSV.setPosition(0.5);
