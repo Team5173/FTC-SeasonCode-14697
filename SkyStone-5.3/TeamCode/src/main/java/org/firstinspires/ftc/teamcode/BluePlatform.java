@@ -46,13 +46,13 @@ public class BluePlatform extends LinearOpMode {
         AM.setPower(-0.5);
 
         //Go Forward to the Platform
-        goBackward(0.65);
+        goForward(0.65);
 
         sleep(ARM_RAISE_TIME);
 
         AM.setPower(-0.07);
 
-        sleep(600 - ARM_RAISE_TIME);
+        sleep(675 - ARM_RAISE_TIME);
 
         // stop motors
         stopMotor();
@@ -138,10 +138,10 @@ public class BluePlatform extends LinearOpMode {
         BR.setPower(-sp);
     }
     public void strafeRight(double sp) {
-        FL.setPower(sp);
-        FR.setPower(-sp);
-        BL.setPower(-sp);
-        BR.setPower(sp);
+        FL.setPower(-sp);
+        FR.setPower(sp);
+        BL.setPower(sp);
+        BR.setPower(-sp);
     }
 
 

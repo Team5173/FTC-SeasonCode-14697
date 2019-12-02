@@ -44,19 +44,26 @@ public class BlueSkyStone extends LinearOpMode {
         clamp.setPosition(0.0);
 
         //Go Forward to the SkyStone
-        goForward(0.65);
+        goForward(0.35);
 
-        sleep(775);
+        sleep(1500);
 
         //Stop motors and clamp the SkyStone
         stopMotor();
 
+
+        sleep(1000);
+
         clamp.setPosition(.7);
 
-        sleep(500);
+        sleep(1000);
+
+        stopMotor();
+
+        sleep(1000);
 
         //Go backwards a little
-       goBackward(0.65);
+       goBackward(0.35);
         sleep(287);
 
         stopMotor();
@@ -66,7 +73,7 @@ public class BlueSkyStone extends LinearOpMode {
         //Turn left to the blue line
        turnLeft();
 
-        sleep(375);
+        sleep(250);
 
         stopMotor();
 
@@ -80,7 +87,7 @@ public class BlueSkyStone extends LinearOpMode {
 
         }
 
-        goForward(0.5);
+        goForward(0.4);
 
         sleep(500);
         isblue = false;
@@ -136,10 +143,10 @@ public class BlueSkyStone extends LinearOpMode {
 
 
     public void turnLeft() {
-        FL.setPower(1);
-        FR.setPower(-1);
-        BL.setPower(1);
-        BR.setPower(-1);
+        FL.setPower(.9);
+        FR.setPower(-0.9);
+        BL.setPower(9);
+        BR.setPower(-0.9);
     }
 
 
