@@ -152,9 +152,9 @@ public class RedSkyStone extends LinearOpMode {
 
 
     public void turnRight() {
-        FL.setPower(-.9);
-        FR.setPower(.9);
-        BL.setPower(-.9);
-        BR.setPower(.9);
+        FL.setPower(-.85);
+        FR.setPower(.85);
+        BL.setPower(-.85);
+        BR.setPower(.85);
     }
 }

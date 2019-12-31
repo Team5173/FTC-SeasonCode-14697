@@ -21,6 +21,7 @@ public class RedPlatform extends LinearOpMode {
     private DcMotor BR = null;
     private Servo RSV = null;
     private Servo LSV = null;
+    private Servo clamp;
     private DcMotorSimple AM;
     boolean isred = false;
 
@@ -37,6 +38,7 @@ public class RedPlatform extends LinearOpMode {
 
         LSV = hardwareMap.get(Servo.class, "LSV");
         RSV = hardwareMap.get(Servo.class, "RSV");
+        clamp = hardwareMap.get(Servo.class, "clamp");
 
         AM = hardwareMap.get(DcMotorSimple.class, "AM");
 
@@ -52,7 +54,7 @@ public class RedPlatform extends LinearOpMode {
         goForward();
         sleep(ARM_RAISE_TIME);                                                  // Drive and raise simultaneously
         AM.setPower(-0.07);                                                     // Arm hold current
-
+        clamp.setPosition(0.0);
         sleep(650 - ARM_RAISE_TIME);
 
         // stop motors
@@ -66,14 +68,14 @@ public class RedPlatform extends LinearOpMode {
 
         sleep(500);
 
-        // stop motors
-        stopMotor();
-        sleep(500);
-
         //Go right for an eigth of a second
 
         strafeRight(0.65);
-        sleep(400);
+        sleep(250);
+
+        // stop motors
+        stopMotor();
+        sleep(500);
 
         //Go Backwards while pulling the platform
 
@@ -91,7 +93,7 @@ public class RedPlatform extends LinearOpMode {
 
         //goes left for one and a half seconds
 
-        strafeLeft(0.65);
+        strafeLeft(0.75);
         sleep(750 - ARM_LOWER_TIME);
         AM.setPower(0.25);                                                      // Start lowering arm
         sleep(ARM_LOWER_TIME);
@@ -127,10 +129,10 @@ public class RedPlatform extends LinearOpMode {
     }
 
     public void goForward() {
-        FL.setPower(-0.65);
-        FR.setPower(-0.65);
-        BL.setPower(-0.65);
-        BR.setPower(-0.65);
+        FL.setPower(-0.58);
+        FR.setPower(-0.58);
+        BL.setPower(-0.58);
+        BR.setPower(-0.58);
     }
 
     public void strafeLeft(double sp) {

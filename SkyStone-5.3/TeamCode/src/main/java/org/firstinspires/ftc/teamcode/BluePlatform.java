@@ -19,6 +19,7 @@ public class BluePlatform extends LinearOpMode {
     private DcMotor BR = null;
     private Servo RSV = null;
     private Servo LSV = null;
+    private Servo clamp;
     private DcMotorSimple AM = null;
     boolean isblue = false;
 
@@ -31,6 +32,7 @@ public class BluePlatform extends LinearOpMode {
         BL = hardwareMap.get(DcMotor.class, "BL");
         BR = hardwareMap.get(DcMotor.class, "BR");
         AM = hardwareMap.get(DcMotorSimple.class, "AM");
+        clamp = hardwareMap.get(Servo.class, "clamp");
 
         LSV = hardwareMap.get(Servo.class, "LSV");
         RSV = hardwareMap.get(Servo.class, "RSV");
@@ -43,10 +45,11 @@ public class BluePlatform extends LinearOpMode {
 
         waitForStart();
 
+        clamp.setPosition(0.0);
         AM.setPower(-0.5);
 
         //Go Forward to the Platform
-        goForward(0.65);
+        goForward(0.57);
 
         sleep(ARM_RAISE_TIME);
 
@@ -56,6 +59,10 @@ public class BluePlatform extends LinearOpMode {
 
         // stop motors
         stopMotor();
+        sleep(1000);
+
+        stopMotor();
+
         sleep(500);
 
         //Set the servos to grab the platform
@@ -65,9 +72,13 @@ public class BluePlatform extends LinearOpMode {
         sleep(500);
 
         //Go left for an eigth of a second
-        strafeLeft(0.65);
+        strafeLeft(0.60);
 
-        sleep(400);
+        sleep(350);
+
+        stopMotor();
+
+        sleep(500);
 
         //Go Backwards while pulling the platform
         goBackward(0.65);
@@ -77,6 +88,7 @@ public class BluePlatform extends LinearOpMode {
         // stop motors
         stopMotor();
 
+        sleep(1000);
         //Set servos so we can slide away from the platform
         LSV.setPosition(0.0);
         RSV.setPosition(0.0);

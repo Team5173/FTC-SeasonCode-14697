@@ -92,12 +92,19 @@ public class FTCMecanumTest extends OpMode {
     }
 
     public void loop() {
-        double Speed = Math.pow(gamepad1.right_stick_y, 3);
-        double Turn = Math.pow(-gamepad1.right_stick_x, 3);
-        double Strafe = Math.pow(gamepad1.left_stick_x, 3);
+        double Speed = Math.pow(gamepad1.left_stick_y, 3);
+        double Turn = Math.pow(-gamepad1.left_stick_x, 3);
+        double Strafe; //Defined by the if statement below
         double MAX_SPEED = 1.0;
 
+        //Strafe Definition
+        if(Math.abs(gamepad1.right_stick_y) > 0.5){
+            Strafe = gamepad1.right_stick_y * 0.5;
+        }else{
+            Strafe = Math.pow(gamepad1.right_stick_x, 3);
+        }
 
+        //Front Servos
         if(gamepad1.left_bumper){
             LSV.setPosition(0.5);
             RSV.setPosition(0.5);
@@ -109,11 +116,10 @@ public class FTCMecanumTest extends OpMode {
         if(gamepad2.left_trigger > 0.2){
             clamp.setPosition(0.0);
         }else if(gamepad2.right_trigger > 0.2){
-            clamp.setPosition(.65);
+            clamp.setPosition(.70);
+        }else if(gamepad2.y){
+            clamp.setPosition(0.8);
         }
-        /*else if(gamepad2.y){
-            clamp.setPosition(0.7);
-        }*/
 
 
         if((FL.getCurrentPosition() >= 1075) && (gamepad2.right_stick_y < 0)){
